@@ -459,7 +459,9 @@ object MirrorMaker extends Logging with KafkaMetricsGroup {
           }
           producer.send(new TopicAndPartition(data.sourceTopic, data.sourcePartition),
                         data.sourceOffset,
-                        data.key,
+                        // Set key to null to force RR partitioner
+                        //data.key,
+                        null,
                         data.value)
         }
       } catch {
